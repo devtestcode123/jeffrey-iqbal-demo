@@ -1,50 +1,56 @@
-# Jeffrey Iqbal — Site (Static)
+# Jeffrey Iqbal — Website
 
-This workspace includes a root-level static website with original homepage styling and simple page navigation. The site is built for easy hosting on GitHub Pages, Netlify, Vercel, or any static server.
+A one-page static site for Jeffrey Iqbal. Currently it's a client demo on GitHub Pages; later it becomes the final .com.
 
-Quick GitHub Pages deploy:
+## Layout
 
-1. Create a GitHub repo and push this project.
-2. In the repository settings enable GitHub Pages and set the site source to the `main` branch and root folder.
-3. Your site will be available at `https://<username>.github.io/<repo>/`.
-
-Alternatively, deploy the repository root to Netlify or Vercel and serve the pages directly.
-
-Notes:
-- The contact page uses JavaScript to POST to `/api/contact` when a backend is running.
-- If you host the site as static-only, the contact form will still render but will show a fallback message.
-- Spotify, YouTube, and Apple Music links are included and open in new tabs.
-
-Project layout
-------------
-
-- Root HTML pages: `index.html`, `about.html`, `music.html`, `packages.html`, `video.html`, `contact.html`.
-- `assets/`: static assets and shared CSS. Use `assets/css/style.css` for page styling.
-- `scripts/`: developer scripts and optional backend.
-- `scripts/backend/`: Flask contact endpoint and SMTP email utility.
-- `data/`: runtime data and debug artifacts (`last_email.json` when SMTP is not configured).
-- `docs/`: design notes and references.
-
-Run local preview: open `index.html` in a browser or serve with a simple static server, e.g.:
-
-```powershell
-# from workspace root
-python -m http.server 8000
-# then open http://localhost:8000
+```
+index.html            the whole site (one page, section anchors)
+assets/css/style.css  all styles
+assets/js/main.js     scroll reveal, pixel equalizer, booking form
+assets/img/           photos (see below)
+backend/              optional Flask endpoint that emails booking enquiries
+scripts/scraper.py    one-off tool that pulled text from the old jeffreyiqbal.com
+docs/                 design references
 ```
 
-Backend (optional) — to send contact form emails to Jeffrey's email:
+## Photos
 
-1. Copy `scripts/backend/.env.example` to `scripts/backend/.env` and set `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, and `ADMIN_EMAIL` (default is `info@jeffreyiqbal.com`).
-2. Install backend deps and run:
+`assets/img/` holds six photos (`hero`, `live`, `stage`, `crowd`, `studio`, `candid`) and three covers (`cover-*.jpg`). They're 1280×720 stills and title cards taken from Jeffrey's own YouTube music videos. Swap in proper photography from the client for the .com, keeping the same file names (they're case-sensitive on GitHub Pages). The page displays them in black and white. A missing photo shows as a dark panel.
+
+## Music links
+
+- Spotify artist: `0QJN3RYr6xAyScRqhkephw`
+- Apple Music artist: `561702291`
+- YouTube channel: `@jeffreyiqbal`, which the uploads playlist embed reads from
+
+The players in the Listen section load only when scrolled near. YouTube Music has no embeddable player, so it's a link button.
+
+## Run locally
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r scripts/backend/requirements.txt
-python scripts/backend/app.py
+python -m http.server 8000   # then open http://localhost:8000
 ```
 
-3. With the backend running, open `http://localhost:5000/contact.html` in a browser and submit the form — the server will email the submission to `ADMIN_EMAIL`.
+## Deploy the demo (GitHub Pages)
 
-If SMTP is not configured, the backend saves the last submission to `data/last_email.json` for review.
+Push to GitHub → Settings → Pages → Deploy from branch → `main` / root.
+GitHub Pages can't run the backend, so the booking form opens the visitor's email app with the enquiry already filled in.
+
+## Booking backend (for the final .com)
+
+The form POSTs `{name, email, subject, message}` to `/api/contact`. The backend has to be served from the same domain as the site, e.g. behind a reverse proxy.
+
+```powershell
+python -m venv .venv; .\.venv\Scripts\activate
+pip install -r backend/requirements.txt
+copy backend\.env.example backend\.env   # set SMTP_HOST, SMTP_USER, SMTP_PASSWORD, ADMIN_EMAIL
+python backend/app.py
+```
+
+Without SMTP settings, the backend writes the last enquiry to `data/last_email.json` instead of sending it.
+
+## Before launching the .com
+
+- Remove the `noindex` meta tag at the top of `index.html`.
+- Host the backend, or switch the form to a form service.
