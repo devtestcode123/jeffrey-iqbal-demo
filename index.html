@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-[#0a0a0a]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeffrey Iqbal | Bollywood to Hollywood</title>
+    
+    <!-- Fonts: Anton (Bold), Great Vibes (Script), Outfit (Modern Geometric Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Great+Vibes&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-black': '#0a0a0a',      /* Deep background */
+                        'brand-surface': '#141414',    /* Slightly elevated panels */
+                        'brand-cream': '#f5f2eb',      /* Warm text */
+                        'brand-red': '#e32602',        /* Vibrant DULHAN red */
+                        'brand-gold': '#d1a775',       /* Accent matching instruments */
+                        'brand-gray': '#888888',       /* Slightly lighter gray for better contrast */
+                    },
+                    fontFamily: {
+                        'block': ['Anton', 'sans-serif'],
+                        'script': ['Great Vibes', 'cursive'],
+                        'body': ['Outfit', 'sans-serif'],
+                    },
+                    fontSize: {
+                        '10xl': '9rem',
+                        '11xl': '12rem',
+                        '12xl': '15rem',
+                    },
+                    letterSpacing: {
+                        'super-tight': '-0.05em',
+                    },
+                    animation: {
+                        'marquee': 'marquee 30s linear infinite',
+                        'marquee-slow': 'marquee 45s linear infinite',
+                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #f5f2eb;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* High-End Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e32602;
+        }
+
+        /* Editorial Text Stroke Effect */
+        .text-stroke-cream {
+            color: transparent;
+            -webkit-text-stroke: 1.5px #f5f2eb;
+        }
+        .text-stroke-red {
+            color: transparent;
+            -webkit-text-stroke: 1.5px #e32602;
+        }
+
+        /* Mix Blend Modes for layered typography */
+        .blend-difference {
+            mix-blend-mode: difference;
+        }
+        .blend-screen {
+            mix-blend-mode: screen;
+        }
+
+        /* Intersection Observer Reveal Classes */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Smooth Image Hover Gradients */
+        .img-overlay::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,0) 50%);
+            pointer-events: none;
+        }
+
+        .nav-blur {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(245, 242, 235, 0.05);
+        }
+
+        /* Specific fix for Safari clipping */
+        .clip-fix {
+            transform: translateZ(0);
+        }
+    </style>
+</head>
+<body class="selection:bg-brand-red selection:text-white">
+
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6 px-6 md:px-12">
+        <div class="max-w-[1400px] mx-auto flex justify-between items-center">
+            <a href="#home" class="group relative z-50 flex items-center">
+                <span class="font-block text-3xl md:text-4xl tracking-wide text-brand-cream group-hover:text-transparent group-hover:-webkit-text-stroke-[1px] group-hover:-webkit-text-stroke-brand-red transition-all duration-300">JEFFREY</span>
+                <span class="font-script text-3xl md:text-4xl text-brand-red absolute -bottom-3 right-[-20px] transform -rotate-6 group-hover:scale-110 transition-transform duration-300">Iqbal</span>
+            </a>
+            
+            <!-- Desktop Links -->
+            <div class="hidden lg:flex space-x-10 items-center font-body text-xs font-bold tracking-[0.2em] uppercase text-brand-gray">
+                <a href="#about" class="hover:text-brand-cream transition-colors relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-[2px] after:bg-brand-red hover:after:w-full after:transition-all after:duration-300">About</a>
+                <a href="#packages" class="hover:text-brand-cream transition-colors relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-[2px] after:bg-brand-red hover:after:w-full after:transition-all after:duration-300">Tour & Events</a>
+                <a href="#media" class="hover:text-brand-cream transition-colors relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-[2px] after:bg-brand-red hover:after:w-full after:transition-all after:duration-300">Media</a>
+                <a href="#mission" class="hover:text-brand-cream transition-colors relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-[2px] after:bg-brand-red hover:after:w-full after:transition-all after:duration-300">Mission</a>
+                <a href="#contact" class="text-brand-cream bg-brand-red px-6 py-3 rounded-sm hover:bg-white hover:text-brand-red transition-all duration-300">Book Now</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="lg:hidden text-brand-cream text-2xl z-50 focus:outline-none">
+                <div class="space-y-2">
+                    <span class="block w-8 h-[2px] bg-brand-cream transition-transform duration-300 origin-right"></span>
+                    <span class="block w-6 h-[2px] bg-brand-red transition-transform duration-300 origin-right ml-auto"></span>
+                </div>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-brand-black flex flex-col justify-center px-10 space-y-8 font-block text-5xl sm:text-7xl uppercase tracking-wide transition-all duration-500 transform translate-x-full z-40 clip-fix">
+            <a href="#about" class="mobile-link text-stroke-cream hover:text-brand-red hover:-webkit-text-stroke-0 transition-all">About</a>
+            <a href="#packages" class="mobile-link text-stroke-cream hover:text-brand-red hover:-webkit-text-stroke-0 transition-all">Packages</a>
+            <a href="#media" class="mobile-link text-stroke-cream hover:text-brand-red hover:-webkit-text-stroke-0 transition-all">Media</a>
+            <a href="#mission" class="mobile-link text-stroke-cream hover:text-brand-red hover:-webkit-text-stroke-0 transition-all">Mission</a>
+            <a href="#contact" class="mobile-link text-brand-red">Contact</a>
+            
+            <div class="flex space-x-6 mt-12 text-2xl text-brand-gray">
+                <a href="https://www.instagram.com/jeffreyiqbal" target="_blank" class="hover:text-brand-cream transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="http://youtube.com/jeffreyiqbal" target="_blank" class="hover:text-brand-cream transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://open.spotify.com/artist/5s825Gf34F2Oq5MvP0Wl8T" target="_blank" class="hover:text-brand-cream transition-colors"><i class="fa-brands fa-spotify"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative min-h-[100svh] w-full flex items-center justify-center overflow-hidden pt-20">
+        <!-- Background Asset -->
+        <div class="absolute inset-0 w-full h-full z-0 img-overlay">
+            <!-- Using the exact provided image to drive the aesthetic -->
+            <img src="image_b8ef6d.jpg" alt="Jeffrey Iqbal Dulhan Jam" class="w-full h-full object-cover object-[center_30%] opacity-40 scale-105 animate-pulse-slow" onerror="this.src='https://placehold.co/1920x1080/0a0a0a/e32602?text=Jeffrey+Iqbal'">
+            
+            <!-- Vignette/Gradient to blend image into the black background -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#0a0a0a_100%)]"></div>
+        </div>
+
+        <div class="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col items-center mt-12 md:mt-24">
+            
+            <!-- Massive Typography mimicking "DULHAN" -->
+            <div class="relative text-center w-full flex flex-col items-center justify-center leading-none select-none h-[40vh] sm:h-[50vh] md:h-[60vh] max-h-[600px]">
+                <h1 class="font-block text-[20vw] sm:text-[18vw] md:text-[14rem] lg:text-[17rem] text-brand-red uppercase tracking-tight m-0 p-0 blend-screen drop-shadow-[0_0_30px_rgba(227,38,2,0.4)] absolute top-0">
+                    JEFFREY
+                </h1>
+                
+                <!-- Floating Script Text matching "Jam" -->
+                <div class="absolute top-1/2 transform -translate-y-1/2 -rotate-3 z-20 w-full text-center pointer-events-none">
+                    <span class="font-script text-6xl sm:text-7xl md:text-9xl text-brand-cream drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+                        Bollywood to Hollywood
+                    </span>
+                </div>
+
+                <h1 class="font-block text-[20vw] sm:text-[18vw] md:text-[14rem] lg:text-[17rem] text-brand-cream uppercase tracking-tight m-0 p-0 z-10 absolute bottom-0">
+                    IQBAL
+                </h1>
+            </div>
+            
+            <div class="mt-12 md:mt-16 flex flex-col sm:flex-row items-center gap-6 z-20">
+                <a href="#contact" class="w-full sm:w-auto text-center bg-brand-red text-brand-cream font-body font-bold text-sm tracking-[0.2em] uppercase px-10 py-5 rounded-sm hover:bg-brand-cream hover:text-brand-red transition-all duration-300 shadow-[0_0_20px_rgba(227,38,2,0.3)] hover:shadow-[0_0_30px_rgba(245,242,235,0.5)]">
+                    Book The Experience
+                </a>
+                <a href="#media" class="w-full sm:w-auto text-center border border-brand-gray/50 text-brand-cream font-body font-bold text-sm tracking-[0.2em] uppercase px-10 py-5 rounded-sm hover:border-brand-cream hover:bg-brand-cream hover:text-brand-black transition-all duration-300 group flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-play text-brand-red group-hover:text-brand-black transition-colors"></i> Watch Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 z-20">
+            <span class="font-body text-[10px] uppercase tracking-widest text-brand-gray">Scroll</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-brand-gray to-transparent"></div>
+        </div>
+    </section>
+
+    <div class="w-full bg-brand-red text-brand-cream py-3 border-y border-red-900/50 overflow-hidden flex relative z-20">
+        <div class="whitespace-nowrap animate-marquee flex items-center font-block uppercase tracking-wider text-xl md:text-2xl">
+            <span class="mx-6">★ FIRST U.S. BORN BOLLYWOOD PLAYBACK SINGER</span>
+            <span class="mx-6">★ 478K+ YOUTUBE SUBSCRIBERS</span>
+            <span class="mx-6">★ A.R. RAHMAN TOUR ARTIST</span>
+            <span class="mx-6">★ PERFORMED IN OVER 30 COUNTRIES</span>
+            <span class="mx-6">★ AS SEEN ON SA RE GA MA PA</span>
+            <!-- Duplicates for seamless loop -->
+            <span class="mx-6">★ FIRST U.S. BORN BOLLYWOOD PLAYBACK SINGER</span>
+            <span class="mx-6">★ 478K+ YOUTUBE SUBSCRIBERS</span>
+            <span class="mx-6">★ A.R. RAHMAN TOUR ARTIST</span>
+            <span class="mx-6">★ PERFORMED IN OVER 30 COUNTRIES</span>
+            <span class="mx-6">★ AS SEEN ON SA RE GA MA PA</span>
+        </div>
+    </div>
+
+    <section id="about" class="py-24 md:py-40 px-6 md:px-12 max-w-[1400px] mx-auto relative">
+        <!-- Giant Background Typography -->
+        <div class="absolute top-10 left-0 font-block text-10xl md:text-[20rem] text-stroke-cream opacity-5 select-none pointer-events-none tracking-tighter leading-none -z-10 w-full overflow-hidden">
+            ABOUT
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
+            
+            <!-- Left Column: Typography & Text -->
+            <div class="lg:col-span-7 reveal-up">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-[2px] bg-brand-red"></div>
+                    <span class="font-script text-3xl md:text-5xl text-brand-red">The Artist</span>
+                </div>
+                
+                <h2 class="font-block text-5xl md:text-7xl lg:text-8xl uppercase leading-[0.9] tracking-tight mb-10">
+                    Bridging The <br> <span class="text-stroke-cream text-brand-black">East & West</span>
+                </h2>
+                
+                <div class="font-body font-light text-brand-gray text-lg md:text-xl leading-relaxed space-y-6 max-w-2xl">
+                    <p>
+                        USA born and bred, Jeffrey Iqbal has been entertaining audiences and music royalty globally. Making history as the <span class="text-brand-cream font-bold">first U.S.-born singer to perform as a playback singer for a Bollywood film</span> (<em>Dehraadun Diary</em>), his voice authentically brings together music from the East and West.
+                    </p>
+                    <p>
+                        From classic to new Bollywood and new-aged English pop chartbusters, Jeffrey has shared the stage with legendary artists including <span class="text-brand-cream font-bold">A.R. Rahman, Shreya Ghoshal, Shankar Mahadevan, and Atif Aslam</span>.
+                    </p>
+                    <p>
+                        Amassing millions of views and appearing on major TV shows like <em>Sa Re Ga Ma Pa</em>, <em>India’s Raw Star</em>, and <em>Jammin</em>, he takes audiences on a beautiful journey—from romantic valleys to energetic highs.
+                    </p>
+                </div>
+
+                <div class="mt-12 inline-block border border-brand-surface bg-brand-surface/50 p-6 md:p-8 relative">
+                    <i class="fa-solid fa-quote-left absolute top-4 left-4 text-brand-red/20 text-4xl"></i>
+                    <p class="font-block text-xl md:text-3xl uppercase tracking-wide text-brand-cream relative z-10 leading-tight">
+                        "Dancing while singing like this is next to impossible."
+                    </p>
+                    <p class="font-body font-bold text-brand-red tracking-[0.2em] uppercase text-xs mt-4 relative z-10">— Yo Yo Honey Singh</p>
+                </div>
+            </div>
+
+            <!-- Right Column: Image with brutalist offset -->
+            <div class="lg:col-span-5 relative reveal-scale mt-10 lg:mt-0">
+                <div class="relative z-10">
+                    <img src="image_b8ef6d.jpg" alt="Jeffrey Iqbal Performance" class="w-full aspect-[4/5] object-cover grayscale hover:grayscale-0 transition-all duration-700" onerror="this.src='https://placehold.co/800x1000/141414/f5f2eb?text=Live+Performance'">
+                </div>
+                <!-- Brutalist Red Offset Box -->
+                <div class="absolute -bottom-6 -right-6 w-full h-full bg-brand-red -z-10 hidden md:block border border-brand-red"></div>
+                
+                <!-- Stat Badge -->
+                <div class="absolute -left-6 top-1/2 transform -translate-y-1/2 bg-brand-black border border-brand-surface p-6 z-20 text-center shadow-2xl hidden md:block">
+                    <p class="font-block text-6xl text-brand-cream">30+</p>
+                    <p class="font-body text-[10px] uppercase tracking-[0.2em] text-brand-red mt-2 font-bold">Countries<br>Toured</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="packages" class="py-24 md:py-32 bg-brand-surface relative border-y border-white/5">
+        <div class="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
+            
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 reveal-up">
+                <div>
+                    <h3 class="font-script text-4xl text-brand-red mb-2">Experiences</h3>
+                    <h2 class="font-block text-5xl md:text-7xl uppercase leading-none tracking-tight">Your Perfect Night</h2>
+                </div>
+                <p class="font-body text-brand-gray max-w-sm mt-6 md:mt-0 text-sm leading-relaxed">
+                    From sit-down traditional Mehfils to all-out Club Dance Parties. We serve all continents: America, Europe, Asia, Australia & Africa.
+                </p>
+            </div>
+
+            <!-- Minimalist/Brutalist Package List (Like a Tour Schedule) -->
+            <div class="border-t border-white/10 reveal-up">
+                
+                <!-- Package 1 -->
+                <a href="#contact" class="group block border-b border-white/10 py-8 md:py-12 hover:bg-brand-red transition-all duration-300 px-6 -mx-6 rounded-sm">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                        <div class="flex items-center gap-6 md:w-1/3">
+                            <span class="font-block text-3xl md:text-5xl text-brand-gray/30 group-hover:text-brand-cream/50 transition-colors">01</span>
+                            <h3 class="font-block text-3xl md:text-4xl uppercase tracking-wide text-brand-cream transition-colors">Mehfil Night</h3>
+                        </div>
+                        <div class="md:w-1/2 font-body text-brand-gray text-sm md:text-base group-hover:text-brand-cream/90 transition-colors leading-relaxed">
+                            For a traditional sit-down gathering. Drift away into a night of Ghazals, Geets, Bollywood, and Beyond with Jeffrey and his musicians.
+                        </div>
+                        <div class="md:w-1/6 text-right hidden md:block">
+                            <span class="font-body text-xs font-bold uppercase tracking-[0.2em] text-brand-gray border border-brand-gray px-6 py-3 rounded-sm group-hover:border-brand-cream group-hover:text-brand-red group-hover:bg-brand-cream transition-all duration-300">Inquire</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Package 2 -->
+                <a href="#contact" class="group block border-b border-white/10 py-8 md:py-12 hover:bg-brand-red transition-all duration-300 px-6 -mx-6 rounded-sm">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                        <div class="flex items-center gap-6 md:w-1/3">
+                            <span class="font-block text-3xl md:text-5xl text-brand-gray/30 group-hover:text-brand-cream/50 transition-colors">02</span>
+                            <h3 class="font-block text-3xl md:text-4xl uppercase tracking-wide text-brand-cream transition-colors">Dance & Celebrate</h3>
+                        </div>
+                        <div class="md:w-1/2 font-body text-brand-gray text-sm md:text-base group-hover:text-brand-cream/90 transition-colors leading-relaxed">
+                            Our most popular package. Perfect for Weddings, Sangeet nights, and Corporate events. We pump the tempo up until the dance floor is jumping!
+                        </div>
+                        <div class="md:w-1/6 text-right hidden md:block">
+                            <span class="font-body text-xs font-bold uppercase tracking-[0.2em] text-brand-gray border border-brand-gray px-6 py-3 rounded-sm group-hover:border-brand-cream group-hover:text-brand-red group-hover:bg-brand-cream transition-all duration-300">Inquire</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Package 3 -->
+                <a href="#contact" class="group block border-b border-white/10 py-8 md:py-12 hover:bg-brand-red transition-all duration-300 px-6 -mx-6 rounded-sm">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                        <div class="flex items-center gap-6 md:w-1/3">
+                            <span class="font-block text-3xl md:text-5xl text-brand-gray/30 group-hover:text-brand-cream/50 transition-colors">03</span>
+                            <h3 class="font-block text-3xl md:text-4xl uppercase tracking-wide text-brand-cream transition-colors">Live Concert</h3>
+                        </div>
+                        <div class="md:w-1/2 font-body text-brand-gray text-sm md:text-base group-hover:text-brand-cream/90 transition-colors leading-relaxed">
+                            For auditorium settings. Takes you on a beautiful journey through romantic songs and lifts you to an energetic high from your seat.
+                        </div>
+                        <div class="md:w-1/6 text-right hidden md:block">
+                            <span class="font-body text-xs font-bold uppercase tracking-[0.2em] text-brand-gray border border-brand-gray px-6 py-3 rounded-sm group-hover:border-brand-cream group-hover:text-brand-red group-hover:bg-brand-cream transition-all duration-300">Inquire</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Package 4 -->
+                <a href="#contact" class="group block py-8 md:py-12 hover:bg-brand-red transition-all duration-300 px-6 -mx-6 rounded-sm">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                        <div class="flex items-center gap-6 md:w-1/3">
+                            <span class="font-block text-3xl md:text-5xl text-brand-gray/30 group-hover:text-brand-cream/50 transition-colors">04</span>
+                            <h3 class="font-block text-3xl md:text-4xl uppercase tracking-wide text-brand-cream transition-colors">Custom Show</h3>
+                        </div>
+                        <div class="md:w-1/2 font-body text-brand-gray text-sm md:text-base group-hover:text-brand-cream/90 transition-colors leading-relaxed">
+                            We can do ANYTHING you desire. Reach out to Team JI, and we’ll custom tailor a show specifically fitted to your unique event vision.
+                        </div>
+                        <div class="md:w-1/6 text-right hidden md:block">
+                            <span class="font-body text-xs font-bold uppercase tracking-[0.2em] text-brand-gray border border-brand-gray px-6 py-3 rounded-sm group-hover:border-brand-cream group-hover:text-brand-red group-hover:bg-brand-cream transition-all duration-300">Inquire</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Client Process Ticker -->
+            <div class="mt-16 bg-brand-black border border-white/5 p-6 flex flex-wrap justify-between items-center gap-4 reveal-up">
+                <span class="font-body text-xs font-bold uppercase tracking-[0.2em] text-brand-gray">The Process:</span>
+                <span class="font-block text-xl md:text-2xl uppercase tracking-wide text-brand-cream"><span class="text-brand-red">01.</span> Consultation</span>
+                <i class="fa-solid fa-arrow-right text-brand-gray/30"></i>
+                <span class="font-block text-xl md:text-2xl uppercase tracking-wide text-brand-cream"><span class="text-brand-red">02.</span> Design</span>
+                <i class="fa-solid fa-arrow-right text-brand-gray/30 hidden md:block"></i>
+                <span class="font-block text-xl md:text-2xl uppercase tracking-wide text-brand-cream hidden md:block"><span class="text-brand-red">03.</span> Final Details</span>
+                <i class="fa-solid fa-arrow-right text-brand-gray/30 hidden lg:block"></i>
+                <span class="font-block text-xl md:text-2xl uppercase tracking-wide text-brand-red hidden lg:block">04. Show Time</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="media" class="py-24 md:py-40 px-6 md:px-12 max-w-[1400px] mx-auto">
+        
+        <div class="flex flex-col md:flex-row justify-between items-center mb-16 reveal-up">
+            <h2 class="font-block text-5xl md:text-8xl uppercase tracking-tight text-center md:text-left">
+                Sounds & <br><span class="text-brand-red">Visuals</span>
+            </h2>
+            
+            <div class="flex gap-4 mt-8 md:mt-0">
+                <a href="https://open.spotify.com/artist/5s825Gf34F2Oq5MvP0Wl8T" target="_blank" class="w-14 h-14 border border-brand-gray/30 flex items-center justify-center rounded-sm hover:border-[#1DB954] hover:text-[#1DB954] hover:bg-[#1DB954]/10 transition-all text-2xl">
+                    <i class="fa-brands fa-spotify"></i>
+                </a>
+                <a href="https://music.apple.com/us/artist/jeffrey-iqbal/921381333" target="_blank" class="w-14 h-14 border border-brand-gray/30 flex items-center justify-center rounded-sm hover:border-[#FA243C] hover:text-[#FA243C] hover:bg-[#FA243C]/10 transition-all text-2xl">
+                    <i class="fa-brands fa-apple"></i>
+                </a>
+                <a href="http://youtube.com/jeffreyiqbal" target="_blank" class="w-14 h-14 border border-brand-gray/30 flex items-center justify-center rounded-sm hover:border-[#FF0000] hover:text-[#FF0000] hover:bg-[#FF0000]/10 transition-all text-2xl">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 reveal-up">
+            <!-- Main Featured Video (Dulhan Jam) -->
+            <div class="lg:col-span-8 relative group overflow-hidden border border-white/10 bg-brand-surface aspect-video cursor-pointer">
+                <img src="image_b8ef6d.jpg" alt="Dulhan Jam Music Video" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700" onerror="this.src='https://placehold.co/1280x720/141414/e32602?text=Video'">
+                
+                <!-- Play Button Center -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-20 h-20 md:w-24 md:h-24 bg-brand-red rounded-full flex items-center justify-center text-brand-cream text-3xl md:text-4xl pl-2 shadow-[0_0_40px_rgba(227,38,2,0.6)] group-hover:scale-110 transition-transform duration-500">
+                        <i class="fa-solid fa-play"></i>
+                    </div>
+                </div>
+                
+                <!-- Info overlay -->
+                <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/90 to-transparent">
+                    <span class="bg-brand-red text-white text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1 rounded-sm mb-3 inline-block">Latest Release</span>
+                    <h3 class="font-block text-3xl md:text-5xl uppercase tracking-wide">Dulhan Jam</h3>
+                    <p class="font-script text-2xl md:text-3xl text-brand-cream/80 mt-1">Official Music Video</p>
+                </div>
+            </div>
+
+            <!-- Top Tracks Sidebar -->
+            <div class="lg:col-span-4 bg-brand-surface border border-white/10 p-6 flex flex-col justify-between">
+                <div>
+                    <h4 class="font-body text-xs font-bold uppercase tracking-[0.2em] text-brand-gray mb-6 border-b border-white/10 pb-4">Top Tracks</h4>
+                    
+                    <div class="space-y-3">
+                        <!-- Track 1 -->
+                        <a href="https://open.spotify.com/artist/5s825Gf34F2Oq5MvP0Wl8T" target="_blank" class="flex items-center gap-4 p-4 rounded-sm bg-brand-black/50 hover:bg-brand-red group border border-transparent transition-all duration-300">
+                            <span class="font-block text-xl text-brand-gray group-hover:text-brand-cream/70 w-6">01</span>
+                            <div class="flex-grow">
+                                <h5 class="font-block text-xl uppercase tracking-wide text-brand-cream">Rubaru</h5>
+                                <p class="font-body text-xs text-brand-gray group-hover:text-brand-cream/90 transition-colors">Dehraadun Diary (Bollywood)</p>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-brand-gray group-hover:text-brand-cream -rotate-45 transition-colors"></i>
+                        </a>
+                        
+                        <!-- Track 2 -->
+                        <a href="https://open.spotify.com/artist/5s825Gf34F2Oq5MvP0Wl8T" target="_blank" class="flex items-center gap-4 p-4 rounded-sm bg-brand-black/50 hover:bg-brand-red group border border-transparent transition-all duration-300">
+                            <span class="font-block text-xl text-brand-gray group-hover:text-brand-cream/70 w-6">02</span>
+                            <div class="flex-grow">
+                                <h5 class="font-block text-xl uppercase tracking-wide text-brand-cream">Dulhan Jam</h5>
+                                <p class="font-body text-xs text-brand-gray group-hover:text-brand-cream/90 transition-colors">Jeffrey Iqbal & Band</p>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-brand-gray group-hover:text-brand-cream -rotate-45 transition-colors"></i>
+                        </a>
+
+                        <!-- Track 3 -->
+                        <a href="https://open.spotify.com/artist/5s825Gf34F2Oq5MvP0Wl8T" target="_blank" class="flex items-center gap-4 p-4 rounded-sm bg-brand-black/50 hover:bg-brand-red group border border-transparent transition-all duration-300">
+                            <span class="font-block text-xl text-brand-gray group-hover:text-brand-cream/70 w-6">03</span>
+                            <div class="flex-grow">
+                                <h5 class="font-block text-xl uppercase tracking-wide text-brand-cream">Unity Mashup</h5>
+                                <p class="font-body text-xs text-brand-gray group-hover:text-brand-cream/90 transition-colors">English Pop x Bollywood</p>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-brand-gray group-hover:text-brand-cream -rotate-45 transition-colors"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-white/10">
+                    <a href="https://open.spotify.com/artist/5s825Gf34F2Oq5MvP0Wl8T" target="_blank" class="block w-full text-center bg-transparent border border-brand-cream text-brand-cream font-body font-bold text-xs tracking-[0.2em] uppercase py-4 hover:bg-brand-cream hover:text-brand-black transition-all">
+                        Stream Full Catalog
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mission" class="relative py-32 md:py-48 overflow-hidden bg-brand-red border-y-8 border-brand-black">
+        <!-- Grunge/Texture Overlay using CSS radial gradients to mimic a stage spotlight -->
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_0%,rgba(10,10,10,0.9)_100%)] z-10 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZTMyNjAyIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNiYTFmMDIiPjwvcmVjdD4KPC9zdmc+')] opacity-20 mix-blend-multiply"></div>
+        
+        <div class="relative z-20 max-w-5xl mx-auto px-6 text-center reveal-up">
+            <h3 class="font-script text-5xl md:text-7xl text-brand-cream mb-2 drop-shadow-xl">My Mission</h3>
+            <h2 class="font-block text-6xl md:text-9xl uppercase leading-[0.8] tracking-tighter text-brand-black mb-12 mix-blend-color-burn opacity-90">
+                Unity Thru <br>Music
+            </h2>
+            
+            <div class="font-body text-brand-cream text-lg md:text-2xl font-light leading-relaxed space-y-8 max-w-4xl mx-auto">
+                <p>
+                    Music can break down all barriers and unite people of different ages, cultures, religions, gender, or anything that can divide us from love and community.
+                </p>
+                <div class="border-l-4 border-brand-black pl-6 py-2 text-left bg-black/10">
+                    <p class="italic text-base md:text-xl font-medium">
+                        "My wife and I were born in India, but our children were born here in the US. We struggle with relating to them... This was the first time we were all dancing and singing together, and I can’t thank you enough."
+                    </p>
+                    <p class="mt-4 font-block uppercase tracking-widest text-sm text-brand-black">— A fan after a live show</p>
+                </div>
+                <p>
+                    From a valley of romantic songs to an energetic high, we are all one community.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 md:py-40 px-6 md:px-12 max-w-[1400px] mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+            
+            <!-- Contact Info -->
+            <div class="reveal-up">
+                <h3 class="font-script text-4xl text-brand-red mb-2">Bookings</h3>
+                <h2 class="font-block text-6xl md:text-8xl uppercase leading-none tracking-tight mb-8">
+                    Let's Make <br>History.
+                </h2>
+                
+                <p class="font-body text-brand-gray text-lg mb-16 max-w-md">
+                    Ready to take your event to the next level? We handle logistics across America, Europe, Asia, Australia & Africa.
+                </p>
+
+                <div class="space-y-12">
+                    <div class="group">
+                        <p class="font-body text-xs font-bold uppercase tracking-[0.2em] text-brand-gray mb-2">Direct Line</p>
+                        <a href="tel:+13024686784" class="font-block text-4xl md:text-5xl text-brand-cream hover:text-brand-red transition-colors inline-block relative">
+                            +1 302 468 6784
+                            <span class="absolute -bottom-1 left-0 w-0 h-1 bg-brand-red transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                    </div>
+
+                    <div class="group">
+                        <p class="font-body text-xs font-bold uppercase tracking-[0.2em] text-brand-gray mb-2">Management</p>
+                        <a href="mailto:info@jeffreyiqbal.com" class="font-block text-3xl md:text-4xl text-brand-cream hover:text-brand-red transition-colors inline-block lowercase relative">
+                            info@jeffreyiqbal.com
+                            <span class="absolute -bottom-1 left-0 w-0 h-1 bg-brand-red transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brutalist Form -->
+            <div class="reveal-up lg:mt-12">
+                <form id="bookingForm" class="space-y-8 bg-brand-surface p-8 md:p-12 border border-white/10 rounded-sm" onsubmit="event.preventDefault(); showToast();">
+                    
+                    <div class="border-b border-white/20 pb-2 focus-within:border-brand-red transition-colors group">
+                        <label class="block font-body text-[10px] font-bold uppercase tracking-[0.2em] text-brand-gray mb-2 group-focus-within:text-brand-red transition-colors">Full Name</label>
+                        <input type="text" required class="w-full bg-transparent font-body text-lg text-brand-cream focus:outline-none placeholder:text-white/20 py-2" placeholder="Enter your name">
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="border-b border-white/20 pb-2 focus-within:border-brand-red transition-colors group">
+                            <label class="block font-body text-[10px] font-bold uppercase tracking-[0.2em] text-brand-gray mb-2 group-focus-within:text-brand-red transition-colors">Email Address</label>
+                            <input type="email" required class="w-full bg-transparent font-body text-lg text-brand-cream focus:outline-none placeholder:text-white/20 py-2" placeholder="email@domain.com">
+                        </div>
+                        <div class="border-b border-white/20 pb-2 focus-within:border-brand-red transition-colors group">
+                            <label class="block font-body text-[10px] font-bold uppercase tracking-[0.2em] text-brand-gray mb-2 group-focus-within:text-brand-red transition-colors">Phone (Optional)</label>
+                            <input type="tel" class="w-full bg-transparent font-body text-lg text-brand-cream focus:outline-none placeholder:text-white/20 py-2" placeholder="Your number">
+                        </div>
+                    </div>
+
+                    <div class="border-b border-white/20 pb-2 focus-within:border-brand-red transition-colors group">
+                        <label class="block font-body text-[10px] font-bold uppercase tracking-[0.2em] text-brand-gray mb-2 group-focus-within:text-brand-red transition-colors">Event Type</label>
+                        <select class="w-full bg-transparent font-body text-lg text-brand-cream focus:outline-none appearance-none cursor-pointer py-2">
+                            <option class="bg-brand-surface text-base">Wedding / Reception</option>
+                            <option class="bg-brand-surface text-base">Corporate Event</option>
+                            <option class="bg-brand-surface text-base">Live Concert / Club</option>
+                            <option class="bg-brand-surface text-base">Other / Custom</option>
+                        </select>
+                    </div>
+
+                    <div class="border-b border-white/20 pb-2 focus-within:border-brand-red transition-colors group">
+                        <label class="block font-body text-[10px] font-bold uppercase tracking-[0.2em] text-brand-gray mb-2 group-focus-within:text-brand-red transition-colors">Event Vision</label>
+                        <textarea rows="3" required class="w-full bg-transparent font-body text-lg text-brand-cream focus:outline-none placeholder:text-white/20 resize-none py-2" placeholder="Tell us about the date, location, and what you're looking for..."></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-cream text-brand-black font-block text-2xl uppercase py-5 rounded-sm hover:bg-brand-red hover:text-brand-cream transition-all duration-300 flex items-center justify-center gap-4 group mt-4">
+                        Submit Request 
+                        <i class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 group-hover:translate-x-1 transition-all"></i>
+                    </button>
+                    
+                    <div id="toastMsg" class="hidden text-center text-brand-red font-body text-sm font-bold uppercase tracking-widest mt-6 bg-brand-red/10 py-3 rounded-sm border border-brand-red/20">
+                        Inquiry Received. Our team will contact you shortly.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-black pt-20 pb-10 border-t border-white/5 text-center overflow-hidden">
+        <div class="max-w-[1400px] mx-auto px-6 flex flex-col items-center">
+            
+            <!-- Massive Footer Logo -->
+            <div class="w-full flex justify-center mb-12 reveal-up">
+                <span class="font-block text-[12vw] leading-none text-stroke-cream opacity-20 select-none pointer-events-none hover:text-brand-red hover:opacity-100 transition-all duration-700">JEFFREY IQBAL</span>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between w-full items-center border-t border-white/10 pt-8 gap-6">
+                <p class="font-body text-[10px] uppercase tracking-[0.2em] text-brand-gray font-bold">
+                    &copy; 2026 Jeffrey Iqbal. All Rights Reserved.
+                </p>
+                
+                <div class="flex space-x-6 text-xl text-brand-gray">
+                    <a href="https://www.instagram.com/jeffreyiqbal" target="_blank" class="hover:text-brand-red transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/jeffreyiqbalmusic" target="_blank" class="hover:text-brand-red transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="http://youtube.com/jeffreyiqbal" target="_blank" class="hover:text-brand-red transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://open.spotify.com/artist/5s825Gf34F2Oq5MvP0Wl8T" target="_blank" class="hover:text-brand-red transition-colors"><i class="fa-brands fa-spotify"></i></a>
+                </div>
+                
+                <p class="font-body text-[10px] uppercase tracking-[0.2em] text-brand-gray font-bold">
+                    Design Inspired By The Greats
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form simulation without alert()
+        function showToast() {
+            const toast = document.getElementById('toastMsg');
+            toast.classList.remove('hidden');
+            document.getElementById('bookingForm').reset();
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Navbar blur and shrink on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-blur', 'py-4');
+                navbar.classList.remove('py-6');
+            } else {
+                navbar.classList.remove('nav-blur', 'py-4');
+                navbar.classList.add('py-6');
+            }
+        });
+
+        // Brutalist Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const lines = menuBtn.querySelectorAll('span');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            const isOpen = !mobileMenu.classList.contains('translate-x-full');
+            if (isOpen) {
+                // Close
+                mobileMenu.classList.add('translate-x-full');
+                lines[0].style.transform = 'rotate(0) translateY(0)';
+                lines[1].style.transform = 'rotate(0) translateY(0)';
+                lines[1].style.width = '1.5rem';
+                document.body.style.overflow = 'auto';
+            } else {
+                // Open
+                mobileMenu.classList.remove('translate-x-full');
+                lines[0].style.transform = 'rotate(45deg) translate(0px, 4px)';
+                lines[1].style.width = '2rem';
+                lines[1].style.transform = 'rotate(-45deg) translate(0px, -4px)';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Intersection Observer for complex Reveal Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Unobserve to keep it visible once loaded for better performance
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal-up, .reveal-scale');
+            reveals.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
